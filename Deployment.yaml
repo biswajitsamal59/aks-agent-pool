@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-devops-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-devops-agent
+  template:
+    metadata:
+      labels:
+        app: azure-devops-agent
+    spec:
+      containers:
+      - name: agent
+        image: biswajit59/azure-devops-agent:latest
+        env:
+        - name: AZP_URL
+          value: "https://dev.azure.com/xxxxxxx"
+        - name: AZP_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: azp-token
+              key: token
+        - name: AZP_AGENT_NAME
+          value: "TestAgent"
+        - name: AZP_POOL
+          value: "TEST_POOL"
