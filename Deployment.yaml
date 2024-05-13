@@ -24,6 +24,9 @@ spec:
               name: azp-token
               key: token
         - name: AZP_AGENT_NAME
-          value: "TestAgent"
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
         - name: AZP_POOL
           value: "TEST_POOL"
